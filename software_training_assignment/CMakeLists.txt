@@ -22,4 +22,28 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+# add_library(cmake_name SHARED src/main_code.cpp)
+
+# target_compile_definitions(cmake_name PRIVATE "SOFTWARE_TRAINING_BUILDING_DLL")
+
+# ament_target_dependencies(cmake_name
+#   "rclcpp"
+#   "rclcpp_components"
+#   "turtlesim"
+#   "std_msgs")   
+
+# rosidl_target_interfaces(cmake_name ${PROJECT_NAME} "rosidl_typesupport_cpp") # need for custom srv
+
+# # register name has to match up with cpp class name
+# rclcpp_components_register_nodes(cmake_name "composition::class_name")
+# set(node_plugins "${node_plugins}composition::class_name;$<TARGET_FILE:cmake_name\n>")
+
+
+
+
+
+
+
+
+
 ament_package()
