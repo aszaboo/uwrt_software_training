@@ -1,34 +1,38 @@
-#ifndef CLEAR_TURTLES_HPP
-#define CLEAR_TURTLES_HPP
+#indef CLEAR_TURT_HPP
+#define CLEAR_TURT_HPP
 
+#include <vector>
+#include <string>
 #include <cstdlib>
 #include <memory>
-#include <string>
-#include <vector>
 
 #include <rclcpp/rclcpp.hpp>
 
 #include <software_training/visibility.h>
-#include <turtlesim/srv/kill.hpp>
+#include <turtlesim/srv/teleport_absolute.hpp>
 
-namespace clear_turtles {
-    class clear_turtles : public rclcpp:Node { //this allows access to the rclcpp node package
-    public:
-        SOFTWARE_TRAINING_PUBLIC
-        explicit clear_turtles(const rclcpp::NodeOptions &options);
 
+namespace composition {
+    
+class reset_turt: public rclcpp::Node { // this line of code creates the class reset_turts
+                                                // the pubic tells specifies that the members of the rclcpp::Node
+                                                // are accesable as public members of the clear_all_turtles class
+    
+    public: RESET_TURTS_PUBLIC // name adds readability
+    explicit reset_turt(const rclcpp::NodeOptions &options) // constuctor for reset_turt whuch is used to specify options for creating a node
 
     private:
-    rclcpp::Client<turtlesim::srv::Kill>::SharedPtr client; // this liks a rclcpp client to the turtlesim kill service
-    rclcpp::TimerBase::SharedPtr timer;
+    rclcpp::Client<turtlesim::srv::TeleportAbsolute>::SharedPtr client; // this liks a rclcpp client to the turtlesim teleport_absolute service
+    rclcpp::TimerBase::SharedPtr timer; //binds timer to timerbase
 
-    std::vector<std::string> turtle_names = {"turtle1", "moving_turtle", //specifies which turtles to kill
-                                           "stationary_turtle"};
+    std::vector<std::string> turtle_positions = {x: 25, y: 10 , theta: 0, name: "moving_turtle"};, //specifies names for turtle spawns
+                                        
 
-        SOFTWARE_TRAINING_LOCAL
-  void kill();
+    SOFTWARE_TRAINING_LOCAL
+    void reset();
     };
 
 
-}
+} // namespace composition
 #endif
+

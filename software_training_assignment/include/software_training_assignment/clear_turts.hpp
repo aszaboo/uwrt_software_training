@@ -13,25 +13,25 @@
 
 namespace composition{
 
-class clear_all_turtles : public rclcpp::Node { // this line of code creates the class clear_all_turtles
+class clear_turts : public rclcpp::Node { // this line of code creates the class clear_all_turtles
                                                 // the pubic tells specifies that the members of the rclcpp::Node
                                                 // are accesable as public members of the clear_all_turtles class
     
     public: CLEAR_TURTS_PUBLIC // name adds readability
-    explicit clear_all_turtles(const rclcpp::NodeOptions &options) // constuctor for clr_all_turts whuch is used to specify options for creating a node
+    explicit clear_turts(const rclcpp::NodeOptions &options) // constuctor for clear_turts whuch is used to specify options for creating a node
 
     private:
-    rclcpp::Client<turtlesim::srv::Kill>::SharedPtr client;
-    rclcpp::TimerBase::SharedPtr timer;
+    rclcpp::Client<turtlesim::srv::Kill>::SharedPtr client; // this liks a rclcpp client to the turtlesim kill service
+    rclcpp::TimerBase::SharedPtr timer; //binds timer to timerbase
 
-    // all the turtles
-    std::vector<std::string> turtle_names = {"turtle1", "moving_turtle",
+    std::vector<std::string> turtle_names = {"turtle1", "moving_turtle", //specifies which turtles to kill
                                            "stationary_turtle"};
-  SOFTWARE_TRAINING_LOCAL
-  void kill_turtles();
-};
 
-} // namespace composition
+        SOFTWARE_TRAINING_LOCAL
+  void kill();
+    };
 
 
-#endif // CLEAR_TURTS_HPP
+}
+#endif
+

@@ -39,11 +39,4 @@ endif()
 # set(node_plugins "${node_plugins}composition::class_name;$<TARGET_FILE:cmake_name\n>")
 
 
-
-
-
-
-
-
-
 ament_package()

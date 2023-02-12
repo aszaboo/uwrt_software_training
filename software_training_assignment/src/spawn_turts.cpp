@@ -1,16 +1,16 @@
-#include <software_training/clear_turts.hpp>
+#include <spawn_turtles.hpp>
 
 using namespace std::chrono_literals;
 
-namespace composition { //creating the node with options
-    clear_turts::clear_turts(const rclcpp::NodeOptions &options) : Node("clear_turts", options) {
+namespace compoisition {
+spawn_turts::spawn_turts(const rclcpp::NodeOptions &options) : Node("spawn_turts", options) {
             //creating client
-            client = this->create_client<turtlesim::srv::Kill>("/kill");
+            client = this->create_client<turtlesim::srv::SPAWN>("/spawn");
             // create callback
-            timer = this->create_wall_timer(2s, std::bind(&clear_turts::kill, this));
+            timer = this->create_wall_timer(2s, std::bind(&spawn_turts::spawn, this));
 }
 
-void clear_turts::kill() {
+void spawn_turts::spawn() {
 
   // check if service exists
   if (!client->wait_for_service(2s)) { // says if there is no client wait 2s for the service
@@ -23,15 +23,15 @@ void clear_turts::kill() {
     return;
   }
 
-  for (std::string &name : turtle_names) {
-    auto request = std::make_shared<turtlesim::srv::Kill::Request>();
+  for (std::string &name : turtle_positions) {
+    auto request = std::make_shared<turtlesim::srv::Spawn::Request>();
     request->name = name; // requests the name of the turtle
 
     auto callback =
-        [this](rclcpp::Client<turtlesim::srv::Kill>::SharedFuture response)
+        [this](rclcpp::Client<turtlesim::srv::Spawn>::SharedFuture response)
         -> void {
       (void)response;
-      RCLCPP_INFO(this->get_logger(), "Turtles Killed");
+      RCLCPP_INFO(this->get_logger(), "Turtles Spawned");
       rclcpp::shutdown(); // need this or else will keep on executing callback -
                           // only want to execute once!
  };
@@ -42,7 +42,7 @@ void clear_turts::kill() {
 
 } // namespace composition
 
+
 #include <rclcpp_components/register_node_macro.hpp>
 
-RCLCPP_COMPONENTS_REGISTER_NODE(composition::clear_turts)
-
+RCLCPP_COMPONENTS_REGISTER_NODE(composition::spawn_turts)
