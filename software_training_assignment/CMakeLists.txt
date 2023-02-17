@@ -91,13 +91,12 @@ install(TARGETS
         turtle_spawn
         turtle_pub
         turtle_service
-        moving_turt_action
+        moving_turt
         turtle_action_server
         cmd_vel_publisher
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION bin)
-)
 
 install(DIRECTORY
         config
