@@ -5,11 +5,24 @@ if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-# find dependencies
+# find packages
 find_package(ament_cmake REQUIRED)
-# uncomment the following section in order to fill in
-# further dependencies manually.
-# find_package(<dependency> REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclcpp_components REQUIRED)
+find_package(rclcpp_action REQUIRED)
+find_package(turtlesim REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(rcutils REQUIRED)
+find_package(rcl REQUIRED)
+find_package(builtin_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+# include
+include_directories(include)
+
+# set up interfaces
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -21,6 +34,41 @@ if(BUILD_TESTING)
   #set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+add_library(clear_turts SHARED src/clear_turts.cpp)
+
+target_compile_definitions(clear_turts PRIVATE "UWRT_SOFTWARE_TRAINING_DLL")
+
+ament_target_dependencies(clear_turts
+"rclcpp"
+"rclcpp_components"
+"turtlesim"
+"std_msgs")
+rclcpp_components_register_nodes(clear_turts "composition::clear_turts")
+
+target_compile_definitions(spawn_turts PRIVATE "UWRT_SOFTWARE_TRAINING_DLL")
+
+ament_target_dependencies(clear_turts
+"rclcpp"
+"rclcpp_components"
+"turtlesim"
+"std_msgs")
+rclcpp_components_register_nodes(clear_turts "composition::clear_turts")
+
+# target_compile_definitions(cmake_name PRIVATE "SOFTWARE_TRAINING_BUILDING_DLL")
+
+# ament_target_dependencies(cmake_name
+#   "rclcpp"
+#   "rclcpp_components"
+#   "turtlesim"
+#   "std_msgs")   
+
+# rosidl_target_interfaces(cmake_name ${PROJECT_NAME} "rosidl_typesupport_cpp") # need for custom srv
+
+# # register name has to match up with cpp class name
+# rclcpp_components_register_nodes(cmake_name "composition::class_name")
+# set(node_plugins "${node_plugins}composition::class_name;$<TARGET_FILE:cmake_name\n>")
+
 
 # add_library(cmake_name SHARED src/main_code.cpp)
 
@@ -37,6 +85,24 @@ endif()
 # # register name has to match up with cpp class name
 # rclcpp_components_register_nodes(cmake_name "composition::class_name")
 # set(node_plugins "${node_plugins}composition::class_name;$<TARGET_FILE:cmake_name\n>")
+
+install(TARGETS
+        turtle_request
+        turtle_spawn
+        turtle_pub
+        turtle_service
+        moving_turt_action
+        turtle_action_server
+        cmd_vel_publisher
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin)
+)
+
+install(DIRECTORY
+        config
+        DESTINATION share/${PROJECT_NAME}
+        )
 
 
 ament_package()
