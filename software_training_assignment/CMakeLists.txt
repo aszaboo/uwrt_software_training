@@ -37,23 +37,23 @@ endif()
 
 add_library(clear_turts SHARED src/clear_turts.cpp)
 
-target_compile_definitions(clear_turts PRIVATE "UWRT_SOFTWARE_TRAINING_DLL")
+target_compile_definitions(spawn_turts PRIVATE "UWRT_SOFTWARE_TRAINING_DLL")
 
-ament_target_dependencies(clear_turts
+ament_target_dependencies(spawn_turts
 "rclcpp"
 "rclcpp_components"
 "turtlesim"
 "std_msgs")
-rclcpp_components_register_nodes(clear_turts "composition::clear_turts")
+rclcpp_components_register_nodes(spawn_turts "composition::spawn_turts")
 
 target_compile_definitions(spawn_turts PRIVATE "UWRT_SOFTWARE_TRAINING_DLL")
 
-ament_target_dependencies(clear_turts
+ament_target_dependencies(spawn_turts
 "rclcpp"
 "rclcpp_components"
 "turtlesim"
 "std_msgs")
-rclcpp_components_register_nodes(clear_turts "composition::clear_turts")
+rclcpp_components_register_nodes(spawn_turts "composition::spawn_turts")
 
 # target_compile_definitions(cmake_name PRIVATE "SOFTWARE_TRAINING_BUILDING_DLL")
 
