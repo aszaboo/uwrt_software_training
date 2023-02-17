@@ -14,7 +14,7 @@ def generate_launch_description():
             ComposableNode(
             package='software_training_assignment',
             plugin='composition::spawn_turts',
-            name='turtle_request'),
+            name='spawn_turts'),
         ], 
     )
         output='screen',
