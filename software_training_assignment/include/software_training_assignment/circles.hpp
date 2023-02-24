@@ -1,5 +1,5 @@
-#indef CIRCLE_TURT1_HPP
-#define CIRCLE_TURT1_HPP
+#indef CIRCLE_TURT_HPP
+#define CIRCLE_TURT_HPP
 
 #include <vector>
 #include <string>
@@ -11,18 +11,18 @@
 #include <turtlesim/topic/geometry_msgs/msg/Twist.hpp>
 
 
-class circle_turt1: public rclcpp::Node { // this line of code creates the class spawn_turts
+class circle_turt: public rclcpp::Node { // this line of code creates the class circle_turt
                                                 // the pubic tells specifies that the members of the rclcpp::Node
-                                                // are accesable as public members of the spawn_turts class
+                                                // are accesable as public members of the circle_turts class
     
-    public: RESET_TURTS_PUBLIC // name adds readability
-    explicit circle_turt1(const rclcpp::NodeOptions &options) // constuctor for spawn_turts whuch is used to specify options for creating a node
+    public: CIRCLE_TURT_PUB // name adds readability
+    explicit circle_turt(const rclcpp::NodeOptions &options) // constuctor for circle_turts whuch is used to specify options for creating a node
 
     private:
-    rclcpp::Client<turtlesim::topic::Spawn>::SharedPtr client; // this liks a rclcpp client to the turtlesim spawn service
+    rclcpp::Client<turtlesim::topic::turtle1/cmd_vel>::SharedPtr client; // this links a rclcpp client to the turtlesim cmd_vel topic
     rclcpp::TimerBase::SharedPtr timer; //binds timer to timerbase
 
-    std::vector<std::string> turtle1_veloctiy = {linear: {x_lin: 10, y_lin: 0 , z_lin: 0}, angular: {x_ang: 0.0, y_ang: 0.0, z_ang:1.8}}; //specifies names for turtle spawns
+    std::vector<std::string> turtle_veloctiy = {linear: {x_lin: 10, y_lin: 0 , z_lin: 0}, angular: {x_ang: 0.0, y_ang: 0.0, z_ang:1.8}}; //specifies the velocity for turtle1
 
     SOFTWARE_TRAINING_LOCAL
     void circle();
