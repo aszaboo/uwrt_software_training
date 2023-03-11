@@ -35,7 +35,7 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
-add_library(clear_turts SHARED src/clear_turts.cpp)
+add_library(spawn_turts SHARED src/spawn_turts.cpp)
 
 target_compile_definitions(spawn_turts PRIVATE "UWRT_SOFTWARE_TRAINING_DLL")
 
@@ -87,13 +87,13 @@ rclcpp_components_register_nodes(spawn_turts "composition::spawn_turts")
 # set(node_plugins "${node_plugins}composition::class_name;$<TARGET_FILE:cmake_name\n>")
 
 install(TARGETS
-        turtle_request
-        turtle_spawn
-        turtle_pub
-        turtle_service
-        moving_turt
-        turtle_action_server
-        cmd_vel_publisher
+        # turtle_request
+        spawn_turts
+        # turtle_pub
+        # turtle_service
+        # moving_turt
+        # turtle_action_server
+        # cmd_vel_publisher
         ARCHIVE DESTINATION lib
         LIBRARY DESTINATION lib
         RUNTIME DESTINATION bin)
